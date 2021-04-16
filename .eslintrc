@@ -13,7 +13,9 @@
 		],
 		"require-jsdoc": 0,
 		"object-curly-spacing": 0,
-		"arrow-parens": 0
+		"arrow-parens": 0,
+		"no-unused-vars": "warn",
+		"operator-linebreak": "off"
 	},
 	"extends": [
 		"eslint:recommended",
