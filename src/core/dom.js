@@ -37,8 +37,24 @@ class Dom {
 		return this.$el.dataset;
 	}
 
-	get style() {
-		return this.$el.style;
+	css(styles = {}) {
+		for (const param in styles) {
+			if (Object.prototype.hasOwnProperty.call(styles, param)) {
+				this.$el.style[param] = styles[param];
+			}
+		}
+	}
+
+	forEach(callback) {
+		this.$el.forEach((el, index, array) => {
+			const domEl = $(el);
+
+			callback(domEl, index, array);
+		});
+	}
+
+	findAll(selector) {
+		return $(this.$el.querySelectorAll(selector));
 	}
 
 	on(eventType, callback) {
@@ -55,6 +71,10 @@ class Dom {
 
 	getCoords() {
 		return this.$el.getBoundingClientRect();
+	}
+
+	get computedStyle() {
+		return getComputedStyle(this.$el);
 	}
 }
 

@@ -24,7 +24,7 @@ function createRow(content, info = '') {
 		: '';
 
 	return `
-		<div class="row">
+		<div class="row" data-type="resizable">
 			<div class="row-info">
 				${info}
 				${resize}
