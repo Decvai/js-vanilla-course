@@ -33,12 +33,48 @@ class Dom {
 		return this;
 	}
 
+	get data() {
+		return this.$el.dataset;
+	}
+
+	css(styles = {}) {
+		for (const param in styles) {
+			if (Object.prototype.hasOwnProperty.call(styles, param)) {
+				this.$el.style[param] = styles[param];
+			}
+		}
+	}
+
+	forEach(callback) {
+		this.$el.forEach((el, index, array) => {
+			const domEl = $(el);
+
+			callback(domEl, index, array);
+		});
+	}
+
+	findAll(selector) {
+		return $(this.$el.querySelectorAll(selector));
+	}
+
 	on(eventType, callback) {
 		this.$el.addEventListener(eventType, callback);
 	}
 
 	off(eventType, callback) {
 		this.$el.removeEventListener(eventType, callback);
+	}
+
+	closest(selector) {
+		return $(this.$el.closest(selector));
+	}
+
+	getCoords() {
+		return this.$el.getBoundingClientRect();
+	}
+
+	get computedStyle() {
+		return getComputedStyle(this.$el);
 	}
 }
 

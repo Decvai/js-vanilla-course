@@ -1,5 +1,8 @@
 import { ExcelComponent } from '@core/ExcelComponent';
 import { createTable } from './table.template';
+// import { $ } from '@core/dom';ssssss
+import { resizeHandler } from './table.resize';
+import { shouldResize } from './table.helpers';
 
 export class Table extends ExcelComponent {
 	static className = 'excel__table';
@@ -7,7 +10,8 @@ export class Table extends ExcelComponent {
 
 	constructor($root) {
 		super($root, {
-			listeners: ['click', 'mousedown', 'mousemove', 'mouseup'],
+			// listeners: ['click', 'mousedown', 'mousemove', 'mouseup'],
+			listeners: ['mousedown'],
 		});
 	}
 
@@ -15,19 +19,27 @@ export class Table extends ExcelComponent {
 		return createTable(100);
 	}
 
-	onClick() {
-		console.log('onClick');
+	// onClick() {
+	// 	console.log('onClick');
+	// }
+
+	onMousedown(event) {
+		if (!shouldResize(event)) return;
+
+		resizeHandler(this.$root, event);
 	}
 
-	onMousedown() {
-		console.log('onMSD');
-	}
+	// Onselectstart() {
+	// 	return false;
+	// }
 
-	onMousemove() {
-		console.log('onMouseMove');
-	}
+	// onMousemove(event) {
+	// 	// console.log(event);
+	// 	// console.log(event);
+	// }
 
-	onMouseup() {
-		console.log('onMouseUP');
-	}
+	// onMouseup(event) {
+	// 	// console.log(event.target);
+	// 	// document.removeEventListener('mousemove', this.onMousemove);
+	// }
 }
