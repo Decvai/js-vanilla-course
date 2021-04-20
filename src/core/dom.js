@@ -33,12 +33,28 @@ class Dom {
 		return this;
 	}
 
+	get data() {
+		return this.$el.dataset;
+	}
+
+	get style() {
+		return this.$el.style;
+	}
+
 	on(eventType, callback) {
 		this.$el.addEventListener(eventType, callback);
 	}
 
 	off(eventType, callback) {
 		this.$el.removeEventListener(eventType, callback);
+	}
+
+	closest(selector) {
+		return $(this.$el.closest(selector));
+	}
+
+	getCoords() {
+		return this.$el.getBoundingClientRect();
 	}
 }
 
