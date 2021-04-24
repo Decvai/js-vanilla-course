@@ -45,6 +45,22 @@ class Dom {
 		}
 	}
 
+	find(selector) {
+		return $(this.$el.querySelector(selector));
+	}
+
+	addClass(className) {
+		this.$el.classList.add(className);
+	}
+
+	removeClass(className) {
+		this.$el.classList.remove(className);
+	}
+
+	toggleClass(className) {
+		this.$el.classList.toggle(className);
+	}
+
 	forEach(callback) {
 		this.$el.forEach((el, index, array) => {
 			const domEl = $(el);
