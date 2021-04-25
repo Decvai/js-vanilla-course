@@ -45,6 +45,10 @@ class Dom {
 		}
 	}
 
+	get id() {
+		return this.data.id;
+	}
+
 	find(selector) {
 		return $(this.$el.querySelector(selector));
 	}
