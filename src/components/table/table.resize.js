@@ -1,6 +1,7 @@
+/* eslint-disable no-invalid-this */
 import { $ } from '@core/dom';
 
-export function resizeHandler($root, event) {
+export function resizeHandler(event) {
 	document.body.onselectstart = () => false;
 
 	const $resizer = $(event.target);
@@ -24,7 +25,7 @@ export function resizeHandler($root, event) {
 			coords.width - Number.parseInt($parent.computedStyle.minWidth)
 		);
 
-		column = $root.findAll(`[data-col="${colMetaData}"]`);
+		column = this.$root.findAll(`[data-col="${colMetaData}"]`);
 	} else {
 		$resizer.css({ width: '100vw' });
 
@@ -50,8 +51,6 @@ export function resizeHandler($root, event) {
 				});
 			}
 		}
-
-		console.log(delta);
 	};
 
 	document.onmouseup = () => {

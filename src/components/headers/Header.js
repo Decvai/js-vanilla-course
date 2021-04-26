@@ -4,6 +4,13 @@ export class Header extends ExcelComponent {
 	static className = 'excel__header';
 	static tagName = 'header';
 
+	constructor($root, options) {
+		super($root, {
+			name: 'Header',
+			...options,
+		});
+	}
+
 	toHTML() {
 		return `
 		<input type="text" class="input" value="New table">

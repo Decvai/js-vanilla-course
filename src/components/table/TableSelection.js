@@ -10,13 +10,19 @@ export class TableSelection {
 	}
 
 	select($el) {
+		if (!$el) return;
+
 		this.unselect();
+		$el.focus({
+			caretAtEnd: true,
+		}).addClass(this.#className);
 		this.$current = $el;
 		this.group.push($el);
-		$el.addClass(this.#className);
 	}
 
 	selectGroup($targetEl) {
+		if (!$targetEl) return;
+
 		this.unselect();
 		const $currentEl = this.$current;
 
