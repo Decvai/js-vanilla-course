@@ -7,16 +7,13 @@
 	},
 	"rules": {
 		"no-tabs": 0,
-		"indent": [
-			"error",
-			"tab"
-		],
+		"indent": "off",
 		"require-jsdoc": 0,
 		"object-curly-spacing": 0,
 		"arrow-parens": 0,
 		"no-unused-vars": "warn",
 		"operator-linebreak": "off",
-		"linebreak-style": "off"
+		"linebreak-style": "off",
 	},
 	"extends": [
 		"eslint:recommended",

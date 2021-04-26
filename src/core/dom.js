@@ -1,3 +1,5 @@
+import { pasteHtmlAtCaret } from './utils';
+
 class Dom {
 	constructor(selector) {
 		this.$el =
@@ -12,6 +14,17 @@ class Dom {
 			return this;
 		}
 		return this.$el.outerHTML.trim();
+	}
+
+	text(text) {
+		if (typeof text === 'string') {
+			this.$el.innerText = text;
+			return this;
+		}
+		if (this.$el.tagName.toLowerCase() === 'input') {
+			return this.$el.value.trim();
+		}
+		return this.$el.innerText.trim();
 	}
 
 	clear() {
@@ -45,20 +58,39 @@ class Dom {
 		}
 	}
 
+	focus(options = {}) {
+		this.$el.focus();
+
+		if (options.caretAtEnd) {
+			const text = this.text();
+			this.text('');
+			pasteHtmlAtCaret(text);
+		}
+
+		return this;
+	}
+
+	get id() {
+		return this.data.id;
+	}
+
 	find(selector) {
 		return $(this.$el.querySelector(selector));
 	}
 
 	addClass(className) {
 		this.$el.classList.add(className);
+		return this;
 	}
 
 	removeClass(className) {
 		this.$el.classList.remove(className);
+		return this;
 	}
 
 	toggleClass(className) {
 		this.$el.classList.toggle(className);
+		return this;
 	}
 
 	forEach(callback) {
@@ -75,10 +107,12 @@ class Dom {
 
 	on(eventType, callback) {
 		this.$el.addEventListener(eventType, callback);
+		return this;
 	}
 
 	off(eventType, callback) {
 		this.$el.removeEventListener(eventType, callback);
+		return this;
 	}
 
 	closest(selector) {
@@ -95,7 +129,10 @@ class Dom {
 }
 
 export function $(selector) {
-	return new Dom(selector);
+	const dom = new Dom(selector);
+
+	if (!dom.$el) return;
+	return dom;
 }
 
 $.create = (tagName, classes = '') => {

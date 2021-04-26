@@ -1,26 +1,50 @@
 import { ExcelComponent } from '@core/ExcelComponent';
-import { createTable } from './table.template';
-// import { $ } from '@core/dom';ssssss
+import {
+	inputHandler,
+	isCell,
+	keyDownHandler,
+	selectionHandler,
+	shouldResize,
+} from './table.helpers';
 import { resizeHandler } from './table.resize';
-import { shouldResize } from './table.helpers';
+import { createTable } from './table.template';
 import { TableSelection } from './TableSelection';
 
 export class Table extends ExcelComponent {
 	static className = 'excel__table';
 	static tagName = 'div';
 
-	constructor($root) {
+	constructor($root, options) {
 		super($root, {
-			listeners: ['mousedown'],
+			name: 'Table',
+			listeners: ['mousedown', 'keydown', 'input'],
+			...options,
 		});
+	}
+
+	prepare() {
+		this.selection = new TableSelection(this.$root);
 	}
 
 	init() {
 		super.init();
 
-		this.selection = new TableSelection();
-		const $cell = this.$root.find('[data-id="0:A"]');
+		const $initialCell = this.$root.find('[data-id="0:0"]');
+		this.selectCell($initialCell);
+
+		this.$on('formula:input', text => {
+			this.selection.$current.text(text);
+		});
+		this.$on('formula:enter', () => {
+			this.selection.$current.focus({
+				caretAtEnd: true,
+			});
+		});
+	}
+
+	selectCell($cell) {
 		this.selection.select($cell);
+		this.$emit('table:change', $cell);
 	}
 
 	toHTML() {
@@ -28,8 +52,18 @@ export class Table extends ExcelComponent {
 	}
 
 	onMousedown(event) {
-		if (!shouldResize(event)) return;
+		if (shouldResize(event)) {
+			resizeHandler.call(this, event);
+		} else if (isCell(event)) {
+			selectionHandler.call(this, event);
+		}
+	}
 
-		resizeHandler(this.$root, event);
+	onKeydown(event) {
+		keyDownHandler.call(this, event);
+	}
+
+	onInput(event) {
+		inputHandler.call(this, event);
 	}
 }
