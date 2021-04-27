@@ -18,7 +18,7 @@ export function selectionHandler(event) {
 		this.selection.select($target);
 	}
 
-	this.$emit('table:change', $target);
+	this.selectCell($target);
 }
 
 export function splitId($el) {
