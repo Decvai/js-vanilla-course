@@ -50,10 +50,7 @@ export function createTable(rowsCount = 15) {
 	const rows = [];
 	const cols = new Array(colsCount)
 		.fill('')
-		.map((_, index) => {
-			const char = toChar(index);
-			return toColumn(char);
-		})
+		.map(Object.call, toColumn)
 		.join('');
 
 	rows.push(createRow(cols));

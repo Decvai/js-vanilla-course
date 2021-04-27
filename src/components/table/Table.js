@@ -24,6 +24,9 @@ export class Table extends ExcelComponent {
 
 	prepare() {
 		this.selection = new TableSelection(this.$root);
+		this.$subscribe(state => {
+			console.log('table-state:', state);
+		});
 	}
 
 	init() {
@@ -45,15 +48,26 @@ export class Table extends ExcelComponent {
 	selectCell($cell) {
 		this.selection.select($cell);
 		this.$emit('table:change', $cell);
+		this.$dispatch({ type: 'TEST' });
 	}
 
 	toHTML() {
 		return createTable(100);
 	}
 
+	async resizeTable(event) {
+		try {
+			const data = await resizeHandler.call(this, event);
+			console.log('resize data:', data);
+			this.$dispatch({ type: 'TABLE_RESIZE', payload: data });
+		} catch (err) {
+			console.warn('Resize error:', err);
+		}
+	}
+
 	onMousedown(event) {
 		if (shouldResize(event)) {
-			resizeHandler.call(this, event);
+			this.resizeTable(event);
 		} else if (isCell(event)) {
 			selectionHandler.call(this, event);
 		}

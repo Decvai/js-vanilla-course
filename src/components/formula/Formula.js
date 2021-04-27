@@ -20,6 +20,10 @@ export class Formula extends ExcelComponent {
 		this.$formula = this.$root.find('#formula');
 
 		this.$on('table:change', formulaChangeHandler.bind(this));
+
+		this.$subscribe(state => {
+			console.log('formula-state:', state);
+		});
 	}
 
 	toHTML() {
