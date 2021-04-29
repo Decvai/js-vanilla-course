@@ -83,7 +83,7 @@ export function resizeHandler(event) {
 			}
 
 			resolve({
-				[$parent.data[type]]: value,
+				[$parent.data[type]]: ~~value,
 			});
 
 			$resizer.css({
