@@ -1,4 +1,5 @@
 import { ExcelComponent } from '@core/ExcelComponent';
+import { tableResize } from '../../redux/actions';
 import {
 	inputHandler,
 	isCell,
@@ -24,9 +25,9 @@ export class Table extends ExcelComponent {
 
 	prepare() {
 		this.selection = new TableSelection(this.$root);
-		this.$subscribe(state => {
-			console.log('table-state:', state);
-		});
+		// this.$subscribe(state => {
+		// 	console.log('table-state:', state);
+		// });
 	}
 
 	init() {
@@ -59,7 +60,7 @@ export class Table extends ExcelComponent {
 		try {
 			const data = await resizeHandler.call(this, event);
 			console.log('resize data:', data);
-			this.$dispatch({ type: 'TABLE_RESIZE', payload: data });
+			this.$dispatch(tableResize(data));
 		} catch (err) {
 			console.warn('Resize error:', err);
 		}

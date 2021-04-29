@@ -43,3 +43,15 @@ export function pasteHtmlAtCaret(html) {
 		document.selection.createRange().pasteHTML(html);
 	}
 }
+
+export function storage(key, data = null) {
+	if (!data) {
+		const initialState = {
+			colState: {},
+			rowState: {},
+		};
+		return JSON.parse(localStorage.getItem(key)) || initialState;
+	}
+
+	localStorage.setItem(key, JSON.stringify(data));
+}

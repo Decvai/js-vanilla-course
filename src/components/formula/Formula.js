@@ -21,9 +21,9 @@ export class Formula extends ExcelComponent {
 
 		this.$on('table:change', formulaChangeHandler.bind(this));
 
-		this.$subscribe(state => {
-			console.log('formula-state:', state);
-		});
+		// this.$subscribe(state => {
+		// 	console.log('formula-state:', state);
+		// });
 	}
 
 	toHTML() {

@@ -17,9 +17,11 @@ function createCell(row) {
 }
 
 function toColumn(col) {
+	const char = toChar(col);
+
 	return `
 		<div class="column" data-type="resizable" data-col="${col}">
-			${col}
+			${char}
 			<div class="col-resize" data-resize="col"></div>
 		</div>
 	`;
