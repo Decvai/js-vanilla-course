@@ -20,6 +20,10 @@ export class ExcelComponent extends DOMListener {
 		this.store.dispatch(action);
 	}
 
+	$getState() {
+		return this.store.getState();
+	}
+
 	$subscribe(fn) {
 		this.storeSub = this.store.subscribe(fn);
 	}
