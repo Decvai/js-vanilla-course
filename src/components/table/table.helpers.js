@@ -66,7 +66,8 @@ export function keyDownHandler(event) {
 }
 
 export function inputHandler(event) {
-	this.$emit('table:change', $(event.target));
+	const text = $(event.target).text();
+	this.updateTextInStore(text);
 }
 
 export function nextSelector(key, row, col) {

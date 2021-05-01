@@ -46,12 +46,44 @@ export function pasteHtmlAtCaret(html) {
 
 export function storage(key, data = null) {
 	if (!data) {
-		const initialState = {
-			colState: {},
-			rowState: {},
-		};
-		return JSON.parse(localStorage.getItem(key)) || initialState;
+		return JSON.parse(localStorage.getItem(key));
 	}
 
 	localStorage.setItem(key, JSON.stringify(data));
+}
+
+export function isEqual(obj1, obj2) {
+	if (obj1 === obj2) {
+		return true;
+	}
+
+	if (isPrimitive(obj1) && isPrimitive(obj2)) {
+		return obj1 === obj2;
+	}
+
+	if (!obj1 || !obj2) {
+		return obj1 === obj2;
+	}
+
+	if (Object.keys(obj1).length !== Object.keys(obj2).length) {
+		return false;
+	}
+
+	for (const key in obj1) {
+		if (Object.hasOwnProperty.call(obj1)) {
+			if (!(key in obj2)) {
+				return false;
+			}
+
+			if (!isEqual(obj1[key], obj2[key])) {
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
+
+export function isPrimitive(obj) {
+	return obj !== Object(obj);
 }

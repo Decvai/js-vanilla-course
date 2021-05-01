@@ -83,7 +83,10 @@ export function resizeHandler(event) {
 			}
 
 			resolve({
-				[$parent.data[type]]: ~~value,
+				size: {
+					[$parent.data[type]]: ~~value,
+				},
+				type,
 			});
 
 			$resizer.css({
