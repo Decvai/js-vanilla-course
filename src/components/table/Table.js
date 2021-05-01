@@ -1,5 +1,5 @@
 import { ExcelComponent } from '@core/ExcelComponent';
-import { tableResize } from '../../redux/actions';
+import { changeText, tableResize } from '../../redux/actions';
 import {
 	inputHandler,
 	isCell,
@@ -25,19 +25,18 @@ export class Table extends ExcelComponent {
 
 	prepare() {
 		this.selection = new TableSelection(this.$root);
-		// this.$subscribe(state => {
-		// 	console.log('table-state:', state);
-		// });
 	}
 
 	init() {
 		super.init();
 
 		const $initialCell = this.$root.find('[data-id="0:0"]');
+		this.selection.select($initialCell);
 		this.selectCell($initialCell);
 
 		this.$on('formula:input', text => {
 			this.selection.$current.text(text);
+			this.updateTextInStore(text);
 		});
 		this.$on('formula:enter', () => {
 			this.selection.$current.focus({
@@ -47,9 +46,13 @@ export class Table extends ExcelComponent {
 	}
 
 	selectCell($cell) {
-		this.selection.select($cell);
-		this.$emit('table:change', $cell);
-		this.$dispatch({ type: 'TEST' });
+		const text = $cell.text();
+		this.$dispatch(
+			changeText({
+				id: this.selection.$current.id,
+				text,
+			})
+		);
 	}
 
 	toHTML() {
@@ -59,11 +62,19 @@ export class Table extends ExcelComponent {
 	async resizeTable(event) {
 		try {
 			const data = await resizeHandler.call(this, event);
-			console.log('resize data:', data);
 			this.$dispatch(tableResize(data));
 		} catch (err) {
 			console.warn('Resize error:', err);
 		}
+	}
+
+	updateTextInStore(text) {
+		this.$dispatch(
+			changeText({
+				id: this.selection.$current.id,
+				text,
+			})
+		);
 	}
 
 	onMousedown(event) {

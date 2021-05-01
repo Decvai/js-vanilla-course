@@ -11,7 +11,11 @@ export function keyDownHandler(key) {
 	return event;
 }
 
-export function formulaChangeHandler($cell) {
-	const cellText = $cell.text();
-	this.$formula.text(cellText);
+export function formulaChangeHandler(changes) {
+	const text = changes.currentText;
+
+	if (text !== this.$formula.text()) {
+		this.$formula.text(text);
+		console.log('text changed', text);
+	}
 }

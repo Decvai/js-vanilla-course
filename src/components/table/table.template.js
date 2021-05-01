@@ -4,9 +4,18 @@ const CODES = {
 };
 
 const DEFAULT_WIDTH = 120;
+const DEFAULT_HEIGHT = 24;
 
 function getWidth(state, index) {
 	return state?.colState[index] || DEFAULT_WIDTH;
+}
+
+function getHeight(state, index) {
+	return state?.rowState[index] || DEFAULT_HEIGHT;
+}
+
+function getText(state, id) {
+	return state?.dataState[id] || '';
 }
 
 function toChar(index) {
@@ -16,15 +25,18 @@ function toChar(index) {
 function createCell(state, row) {
 	return (_, col) => {
 		const width = getWidth(state, col);
+		const id = `${row}:${col}`;
+
 		return `
 			<div
 			contenteditable
 			class="cell"
 			style="width: ${width}px"
 			data-col="${col}"
-			data-id="${row}:${col}"
+			data-id="${id}"
 			data-type="cell"
 			>
+			${getText(state, id)}
 			</div>
 		`;
 	};
@@ -49,13 +61,18 @@ function createColumn(state) {
 	};
 }
 
-function createRow(content, info = '') {
+function createRow(state, content, info = '') {
 	const resize = info
 		? '<div class="row-resize" data-resize="row"></div>'
 		: '';
 
 	return `
-		<div class="row" data-type="resizable">
+		<div
+		class="row"
+		data-type="resizable"
+		data-row="${info}"
+		style="height:${getHeight(state, info)}px"
+		>
 			<div class="row-info">
 				${info}
 				${resize}
@@ -73,14 +90,14 @@ export function createTable(rowsCount = 15, state) {
 		.map(createColumn(state))
 		.join('');
 
-	rows.push(createRow(cols));
+	rows.push(createRow(state, cols));
 
 	for (let row = 0; row < rowsCount; row++) {
 		const cells = new Array(colsCount)
 			.fill('')
 			.map(createCell(state, row))
 			.join('');
-		rows.push(createRow(cells, row + 1));
+		rows.push(createRow(state, cells, row + 1));
 	}
 
 	return rows.join('');
