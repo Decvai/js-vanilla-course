@@ -1,4 +1,5 @@
 import { ExcelComponent } from '@core/ExcelComponent';
+import { defaultStyles } from '../../constants';
 import { changeText, tableResize } from '../../redux/actions';
 import {
 	inputHandler,
@@ -43,6 +44,9 @@ export class Table extends ExcelComponent {
 				caretAtEnd: true,
 			});
 		});
+		this.$on('toolbar:applyStyle', style => {
+			this.selection.applyStyle(style);
+		});
 	}
 
 	selectCell($cell) {
@@ -53,6 +57,8 @@ export class Table extends ExcelComponent {
 				text,
 			})
 		);
+
+		console.log($cell.getStyles(Object.keys(defaultStyles)));
 	}
 
 	toHTML() {
