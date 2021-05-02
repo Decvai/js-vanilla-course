@@ -16,6 +16,5 @@ export function formulaChangeHandler(changes) {
 
 	if (text !== this.$formula.text()) {
 		this.$formula.text(text);
-		console.log('text changed', text);
 	}
 }

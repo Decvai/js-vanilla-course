@@ -61,6 +61,7 @@ export function keyDownHandler(event) {
 	const $next = this.$root.find(nextSelector(key, currentRow, currentCol));
 
 	if ($next) {
+		this.selection.select($next);
 		this.selectCell($next);
 	}
 }
