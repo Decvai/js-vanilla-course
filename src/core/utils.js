@@ -70,7 +70,7 @@ export function isEqual(obj1, obj2) {
 	}
 
 	for (const key in obj1) {
-		if (Object.hasOwnProperty.call(obj1)) {
+		if (Object.hasOwnProperty.call(obj1, key)) {
 			if (!(key in obj2)) {
 				return false;
 			}
@@ -86,4 +86,23 @@ export function isEqual(obj1, obj2) {
 
 export function isPrimitive(obj) {
 	return obj !== Object(obj);
+}
+
+export function camelToDashCase(s) {
+	return s.replace(/[A-Z]/g, '-$&').toLowerCase();
+}
+
+export function debounce(fn, ms) {
+	let timeout;
+
+	return function (...args) {
+		const later = () => {
+			clearTimeout(timeout);
+			// eslint-disable-next-line no-invalid-this
+			fn.apply(this, args);
+		};
+
+		clearTimeout(timeout);
+		timeout = setTimeout(later, ms);
+	};
 }

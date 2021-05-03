@@ -14,8 +14,7 @@ export function selectionHandler(event) {
 
 	if (event.shiftKey) {
 		this.selection.selectGroup($target);
-	} else {
-		this.selection.select($target);
+		return;
 	}
 
 	this.selectCell($target);
@@ -61,7 +60,6 @@ export function keyDownHandler(event) {
 	const $next = this.$root.find(nextSelector(key, currentRow, currentCol));
 
 	if ($next) {
-		this.selection.select($next);
 		this.selectCell($next);
 	}
 }
