@@ -9,8 +9,14 @@ export class TableSelection {
 		this.$root = $root;
 	}
 
+	get selectedIds() {
+		return this.group.map($el => $el.id);
+	}
+
 	select($el) {
 		if (!$el) return;
+
+		console.log('tableSelection:select');
 
 		this.unselect();
 		$el.focus({

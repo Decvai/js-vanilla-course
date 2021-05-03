@@ -20,6 +20,7 @@ export class StoreSubscriber {
 					const changes = {
 						[key]: state[key],
 					};
+
 					component.storeChanged(changes);
 				});
 			});

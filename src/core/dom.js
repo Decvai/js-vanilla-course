@@ -17,7 +17,7 @@ class Dom {
 	}
 
 	text(text) {
-		if (typeof text === 'string') {
+		if (typeof text !== 'undefined') {
 			this.$el.innerText = text;
 			return this;
 		}
@@ -72,6 +72,15 @@ class Dom {
 
 	get id() {
 		return this.data.id;
+	}
+
+	attr(name, value) {
+		if (typeof value === 'string') {
+			this.$el.setAttribute(name, value);
+			return this;
+		}
+
+		return this.$el.getAttribute(name);
 	}
 
 	find(selector) {
@@ -149,3 +158,5 @@ $.create = (tagName, classes = '') => {
 	}
 	return $(el);
 };
+
+$.isEqual = ($el1, $el2) => $el1?.$el === $el2?.$el;
