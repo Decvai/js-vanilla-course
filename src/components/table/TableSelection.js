@@ -16,8 +16,6 @@ export class TableSelection {
 	select($el) {
 		if (!$el) return;
 
-		console.log('tableSelection:select');
-
 		this.unselect();
 		$el.focus({
 			caretAtEnd: true,
