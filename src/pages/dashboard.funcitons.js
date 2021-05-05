@@ -33,8 +33,6 @@ function getAllKeys() {
 export function createRecordsTable() {
 	const keys = getAllKeys();
 
-	console.log(keys);
-
 	if (!keys.length) {
 		return `<p>You haven't created any tables yet</p>`;
 	}

@@ -12,9 +12,7 @@ export class ExcelComponent extends DOMListener {
 		this.prepare();
 	}
 
-	storeChanged(changes) {
-		console.log('CHANGES:', this.name, changes);
-	}
+	storeChanged(changes) {}
 
 	isWatching(key) {
 		return this.subscribe.includes(key);

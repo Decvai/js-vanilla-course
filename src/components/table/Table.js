@@ -86,7 +86,6 @@ export class Table extends ExcelComponent {
 
 		const styles = $cell.getStyles(Object.keys(defaultStyles));
 		this.$dispatch(changeStyles(styles));
-		console.log('Styles to dispatch:', styles);
 	}
 
 	toHTML() {
