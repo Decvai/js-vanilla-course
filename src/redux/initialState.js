@@ -7,6 +7,7 @@ const defaultState = {
 	stylesState: {},
 	currentText: '',
 	title: 'New table',
+	date: new Date().toJSON(),
 	currentStyles: defaultStyles,
 };
 
