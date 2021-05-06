@@ -1,5 +1,5 @@
+import { $ } from '@core/dom';
 import { ExcelComponent } from '@core/ExcelComponent';
-import { $ } from '../../core/dom';
 import { formulaChangeHandler, keyDownHandler } from './formula.helpers';
 
 export class Formula extends ExcelComponent {

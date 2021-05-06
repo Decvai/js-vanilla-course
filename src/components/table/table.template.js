@@ -1,6 +1,6 @@
-import { defaultStyles } from '../../constants';
 import { parse } from '@core/parse';
 import { camelToDashCase } from '@core/utils';
+import { defaultStyles } from '../../constants';
 
 const CODES = {
 	A: 65,

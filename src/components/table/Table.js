@@ -1,7 +1,7 @@
+import { $ } from '@core/dom';
 import { ExcelComponent } from '@core/ExcelComponent';
 import { parse } from '@core/parse';
 import { defaultStyles } from '../../constants';
-import { $ } from '@core/dom';
 import {
 	applyStyles,
 	changeStyles,
