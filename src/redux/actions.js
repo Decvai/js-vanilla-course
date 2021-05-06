@@ -1,10 +1,10 @@
 import {
-	CHANGE_TEXT,
-	CHANGE_STYLES,
-	TABLE_RESIZE,
 	APPLY_STYLE,
-	CHANGE_TITLE,
 	CHANGE_DATE,
+	CHANGE_STYLES,
+	CHANGE_TEXT,
+	CHANGE_TITLE,
+	TABLE_RESIZE,
 } from './types';
 
 export function tableResize(data) {
