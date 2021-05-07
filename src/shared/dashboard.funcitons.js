@@ -6,28 +6,13 @@ export function toHTML(key) {
 
 	return `
 	<li class="db__record">
-		<a href="#excel/ ${id}">${model.title}</a>
+		<a href="#excel/${id}">${model.title}</a>
 		<strong>
 			${new Date(model.date).toLocaleDateString()}
 			${new Date(model.date).toLocaleTimeString()}
 		</strong>
 	</li>
 	`;
-}
-
-function getAllKeys() {
-	const keys = [];
-
-	for (let i = 0; i < localStorage.length; i++) {
-		const key = localStorage.key(i);
-		if (!key.startsWith('excel')) {
-			continue;
-		}
-
-		keys.push(key);
-	}
-
-	return keys;
 }
 
 export function createRecordsTable() {
@@ -47,4 +32,19 @@ export function createRecordsTable() {
 		${keys.map(toHTML).join('')}
 	</ul>
 	`;
+}
+
+function getAllKeys() {
+	const keys = [];
+
+	for (let i = 0; i < localStorage.length; i++) {
+		const key = localStorage.key(i);
+		if (!key.startsWith('excel')) {
+			continue;
+		}
+
+		keys.push(key);
+	}
+
+	return keys;
 }

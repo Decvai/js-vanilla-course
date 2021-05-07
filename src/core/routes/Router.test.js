@@ -1,4 +1,4 @@
-const { Page } = require('../Page');
+const { Page } = require('../page/Page');
 const { Router } = require('./Router');
 
 class DashBoardPage extends Page {
